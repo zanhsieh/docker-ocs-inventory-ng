@@ -27,3 +27,13 @@ Test your deployment:
 	curl http://localhost/ocsreports/
 
 
+Technical Detail
+----------------
+
+This approach is based on [official wiki server installation guide](http://wiki.ocsinventory-ng.org/index.php/Documentation:Server). In other word, it includes all LAMP module plus perl, mod_perl, and it's dependencies.
+
+To mount your existing inventory database (MySQL), do this:
+
+	docker run -d -p 80:80 -p 3306:3306 -v /path/to/your/mysql/directory:/var/lib/mysql -v  /path/to/your/mysql/setting/dbconfig.inc.php:/usr/share/ocsinventory-reports/ocsreports/dbconfig.inc.php yourname/ocs-inventory-ng
+	
+It also expose port 3306 for MySQL connection; just in case you need it.
