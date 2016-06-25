@@ -1,7 +1,7 @@
 docker-ocs-inventory-ng
 =======================
 
-Out-of-the-box OCS-Inventory-NG Server image based on CentOS 6.6
+Out-of-the-box OCS-Inventory-NG Server image based on CentOS 6
 
 Usage
 -----
