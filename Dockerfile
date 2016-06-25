@@ -6,9 +6,9 @@ RUN yum -y install epel-release ;\
     yum -y install tar gzip make httpd mysql mysql-server php php-mysql php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml php-mbstring php-pecl-zip python-pip perl-XML-Simple perl-Compress-Zlib perl-DBI perl-DBD-MySQL perl-Apache-DBI perl-Net-IP perl-SOAP-Lite mod_perl;\
     yum clean all
 
-ADD OCSNG_UNIX_SERVER-2.1.2.tar.gz /tmp/
-ADD s6-1.1.3.2-musl-static.tar.xz /
-RUN cd /tmp/OCSNG_UNIX_SERVER-2.1.2/Apache/ ;\
+ADD OCSNG_UNIX_SERVER-2.2.1.tar.gz /tmp/
+ADD s6-2.3.0.0-linux-amd64-bin.tar.gz /
+RUN cd /tmp/OCSNG_UNIX_SERVER-2.2.1/Apache/ ;\
     perl Makefile.PL ;\
     make ;\
     make install ;\
@@ -32,7 +32,7 @@ COPY init_db.sh ocsweb.sql /tmp/
 RUN chmod +w /usr/share/ocsinventory-reports/ocsreports/dbconfig.inc.php ;\
     chmod +x /tmp/init_db.sh; \
     /tmp/init_db.sh; \
-    rm -fR /tmp/OCSNG_UNIX_SERVER-2.1.2
+    rm -fR /tmp/OCSNG_UNIX_SERVER-2.2.1
 
 EXPOSE 80 3306
 
