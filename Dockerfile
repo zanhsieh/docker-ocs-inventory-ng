@@ -2,22 +2,24 @@ FROM centos:6
 MAINTAINER Ming Hsieh <zanhsieh@gmail.com>
 
 RUN yum -y install epel-release ;\
+    rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm ;\
     yum -y update ;\
-    yum -y install tar gzip make httpd mysql mysql-server php php-mysql php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml php-mbstring php-pecl-zip python-pip perl-XML-Simple perl-Compress-Zlib perl-DBI perl-DBD-MySQL perl-Apache-DBI perl-Net-IP perl-SOAP-Lite mod_perl;\
+    yum -y install tar gzip make httpd mysql mysql-server php56w php56w-mysql php56w-gd php56w-pecl-memcache php56w-snmp php56w-xmlrpc php56w-pspell php56w-mbstring php56w-pecl-zip python-pip perl-XML-Simple perl-Compress-Zlib perl-DBI perl-DBD-MySQL perl-Apache-DBI perl-Net-IP perl-SOAP-Lite mod_perl;\
     yum clean all
 
 ADD OCSNG_UNIX_SERVER-2.2.1.tar.gz /tmp/
 ADD s6-2.3.0.0-linux-amd64-bin.tar.gz /
-RUN cd /tmp/OCSNG_UNIX_SERVER-2.2.1/Apache/ ;\
-    perl Makefile.PL ;\
+WORKDIR /tmp/OCSNG_UNIX_SERVER-2.2.1/Apache
+RUN perl Makefile.PL ;\
     make ;\
     make install ;\
     cp -R blib/lib/Apache /usr/local/share/perl5/ ;\
-    cp ../etc/logrotate.d/ocsinventory-server /etc/logrotate.d/ ;\
+    cp /tmp/OCSNG_UNIX_SERVER-2.2.1/etc/logrotate.d/ocsinventory-server /etc/logrotate.d/ ;\
     mkdir -p /etc/ocsinventory-server/{plugins,perl} ;\
-    mkdir -p /usr/share/ocsinventory-reports ;\
-    cd .. ;\
-    cp -R ocsreports /usr/share/ocsinventory-reports/ ;\
+    mkdir -p /usr/share/ocsinventory-reports
+
+WORKDIR /tmp/OCSNG_UNIX_SERVER-2.2.1
+RUN cp -R ocsreports /usr/share/ocsinventory-reports/ ;\
     chown root:apache -R /usr/share/ocsinventory-reports/ocsreports ;\
     mkdir -p /var/lib/ocsinventory-reports/{download,ipd,logs,scripts,snmp} ;\
     chown root:apache -R /var/lib/ocsinventory-reports/{download,ipd,logs,scripts,snmp} ;\
