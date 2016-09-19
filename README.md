@@ -1,6 +1,8 @@
 docker-ocs-inventory-ng
 =======================
 
+[![](https://images.microbadger.com/badges/image/zanhsieh/docker-ocs-inventory-ng.svg)](https://microbadger.com/images/zanhsieh/docker-ocs-inventory-ng "Get your own image badge on microbadger.com")
+
 Out-of-the-box OCS-Inventory-NG Server image based on CentOS 6
 
 Usage
